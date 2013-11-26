@@ -32,8 +32,11 @@ public class OpenGLRenderer implements Renderer {
 		// Reset the projection matrix
 		gl.glLoadIdentity();
 		// Calculate the aspect ratio of the window
-		GLU.gluPerspective(gl, 45.0f, (float) width / (float) height, 0.1f,
-				1000.0f);
+//		GLU.gluPerspective(gl, 90.0f, (float) width / (float) height, (float)height/2,
+//		        height);
+	      GLU.gluPerspective(gl, 45.0f, (float) width / (float) height, 0.1f,
+	                1000);
+		
 		// Select the modelview matrix
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 		// Reset the modelview matrix
@@ -43,7 +46,7 @@ public class OpenGLRenderer implements Renderer {
 	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 		// Set the background color to black ( rgba ).
-		gl.glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
+		gl.glClearColor(0.0f, 1.0f, 0.0f, 0.0f);
 		// Enable Smooth Shading, default not really needed.
 		// gl.glShadeModel(GL10.GL_SMOOTH);
 		// // Depth buffer setup.

@@ -8,20 +8,31 @@ import java.util.ArrayList;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import android.app.Activity;
+import android.opengl.GLES10;
+import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
-class HailVertex {
+class HailVertex2 {
     public long x;
     public long y;
-    public HailVertex(long x,long y) {
+    public HailVertex2(long x,long y) {
         this.x = x;
         this.y = y;
     }
 }
-public class DrawHail extends OpenGLESActivity implements IOpenGLDemo {
+public class DrawHail2 extends  Activity implements IOpenGLDemo {
 
     double scaleX = 1.0f;
     double scaleY = 1.0f;
@@ -39,11 +50,59 @@ public class DrawHail extends OpenGLESActivity implements IOpenGLDemo {
     int index = 0;
     FloatBuffer vertexAxis, vertexHail;
     ArrayList<HailVertex> verterxHails = new ArrayList<HailVertex>();
-
+    RelativeLayout main;
+    EditText eText;
+    Button button;
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        mGLSurfaceView = new GLSurfaceView(this);
+        mGLSurfaceView.setRenderer(new OpenGLRenderer(this));
+        mGLSurfaceView.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+        setContentView(R.layout.activity_main);
+        main = (RelativeLayout) findViewById(R.id.main);
+        eText = (EditText) findViewById(R.id.editText1);
+        button = (Button) findViewById(R.id.button1);
+        button.setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Log.i("peter", "num = "+eText.getText().toString());
+                String num = eText.getText().toString();
+                boolean err = false;
+                long input = 0;
+                try {
+                    input = Long.valueOf(num);
+                } catch (Exception e) {
+                    err = true;
+                    Toast.makeText(DrawHail2.this, "乱来，不按套路出牌！", Toast.LENGTH_SHORT).show();
+                }
+                if(err) return;
+                
+                if(input > 400000000) {
+                    Toast.makeText(DrawHail2.this, "天啊，太大了，崩溃中...", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(input == 0) {
+                    Toast.makeText(DrawHail2.this, "0还要我算！鄙视你！", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                
+                mInit = input;
+                mGLSurfaceView.requestRender();
+                
+                
+            }
+        });
+        
+        main.addView(mGLSurfaceView,0);
         createSinArray();
 //        ByteBuffer vbb2 = ByteBuffer.allocateDirect(vArraynew.length * 4);
 //        vbb2.order(ByteOrder.nativeOrder());
@@ -60,7 +119,23 @@ public class DrawHail extends OpenGLESActivity implements IOpenGLDemo {
 //        calculateVertexs(mInit);
 //        handleVertexs();
     }
+    @Override
+    protected void onResume() {
+        // Ideally a game should implement onResume() and onPause()
+        // to take appropriate action when the activity looses focus
+        super.onResume();
+        mGLSurfaceView.onResume();
+    }
 
+    @Override
+    protected void onPause() {
+        // Ideally a game should implement onResume() and onPause()
+        // to take appropriate action when the activity looses focus
+        super.onPause();
+        mGLSurfaceView.onPause();
+    }
+
+    protected GLSurfaceView mGLSurfaceView;
     public void createSinArray() {
         for (int i = 0; i < NUM; i++) {
             // suppose 0 map to -PI, NUM-1 map to PI
@@ -99,7 +174,10 @@ public class DrawHail extends OpenGLESActivity implements IOpenGLDemo {
     }
 
     public void DrawScene(GL10 gl) {
-        super.DrawScene(gl);
+        GLES10.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+        // Clears the screen and depth buffer.
+        GLES10.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
+
         gl.glMatrixMode(GL10.GL_PROJECTION);
         // Reset the projection matrix
         gl.glLoadIdentity();

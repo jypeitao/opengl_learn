@@ -5,6 +5,7 @@ long long mBigX = 0;
 long long mBigY = 0;
 double scaleX = 1.0f;
 double scaleY = 1.0f;
+int type = GL_LINE_STRIP;
 long long calculateValue(long long x)
 {
     long long ret = x >> 1;
@@ -64,7 +65,7 @@ void drawHail(void)
 {
     glColor3f(1.0, 0, 0);
  //   glLineWidth(2);
-    glBegin(GL_POINTS);
+    glBegin(type);
     long long t = mInitY;
     int x = 0;
     do
@@ -124,23 +125,27 @@ extern void myReshape(int width, int height) {};
 
 extern void myMouse(int button, int state, int x, int y) 
 {
-//    if (state == GLUT_DOWN)
-//    {   
-//        if (button == GLUT_LEFT_BUTTON)
-//        {   
-//            glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-//            glClear(GL_COLOR_BUFFER_BIT);
-//	    drawAxis();
-//            glFlush();
-//        }   
-//        else if (button == GLUT_RIGHT_BUTTON)
-//        {   
-//            glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-//            glClear(GL_COLOR_BUFFER_BIT);
-//	    drawSin();
-//            glFlush();
-//        }   
-//    }   
+    if (state == GLUT_DOWN)
+    {   
+        if (button == GLUT_LEFT_BUTTON)
+        {   
+            if(type == GL_LINE_STRIP) return;
+            type = GL_LINE_STRIP;
+            glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+            glClear(GL_COLOR_BUFFER_BIT);
+	    drawHail();
+            glFlush();
+        }   
+        else if (button == GLUT_RIGHT_BUTTON)
+        {   
+            if(type == GL_POINTS) return;
+            type = GL_POINTS;
+            glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+            glClear(GL_COLOR_BUFFER_BIT);
+	    drawHail();
+            glFlush();
+        }   
+    }   
 }
 
 extern void myKeyboard(unsigned char key, int x, int y) {};

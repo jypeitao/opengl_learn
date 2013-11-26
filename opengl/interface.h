@@ -114,7 +114,7 @@ public:
     Vector3() {
         x=y=z=0;
     }
-    Vector3& cross(Vector3 b)
+    Vector3 cross(Vector3 b)
     {
         Vector3 ret;
         ret.x=y*b.z-z*b.y;

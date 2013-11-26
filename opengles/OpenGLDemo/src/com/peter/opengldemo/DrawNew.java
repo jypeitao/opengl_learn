@@ -57,7 +57,7 @@ public class DrawNew extends OpenGLESActivity implements IOpenGLDemo {
         gl.glVertexPointer(2, GL10.GL_FLOAT, 0, vertexAxis);
 
         gl.glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-        gl.glLineWidth(8);
+        //gl.glLineWidth(8);
         gl.glDrawArrays(GL10.GL_LINES, 0, 4);
     }
 
@@ -67,11 +67,12 @@ public class DrawNew extends OpenGLESActivity implements IOpenGLDemo {
         //gl.glRotatex(-80, 0, 1, 0);
         gl.glVertexPointer(2, GL10.GL_FLOAT, 0, vertexNew);
 
+        //gl.glScalex(1, 1, 1);
         gl.glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
         // gl.glPointSize(8);
         //gl.glEnable (GL10.GL_POINT_SMOOTH);
         //gl.glHint (GL10.GL_POINT_SMOOTH, GL10.GL_NICEST);
-        gl.glLineWidth(4);
+        //gl.glLineWidth(4);
         gl.glDrawArrays(GL10.GL_LINE_STRIP, 0, NUM);
     }
 
@@ -80,7 +81,7 @@ public class DrawNew extends OpenGLESActivity implements IOpenGLDemo {
 
         gl.glMatrixMode(GL10.GL_MODELVIEW);
         gl.glLoadIdentity();
-        gl.glTranslatef(0, 0, -16);
+        gl.glTranslatef(0, 0, -14);
 
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
 

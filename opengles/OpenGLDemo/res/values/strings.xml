@@ -8,5 +8,6 @@
     <string name="draw_rect">Draw Rect</string>
     <string name="draw_new">Draw New</string>
     <string name="draw_hail">Draw Hail</string>
+     <string name="draw_hail2">Draw Hail2</string>
 
 </resources>

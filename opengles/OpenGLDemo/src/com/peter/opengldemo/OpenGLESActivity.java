@@ -31,7 +31,7 @@ public class OpenGLESActivity extends Activity implements IOpenGLDemo {
 
 		mGLSurfaceView = new GLSurfaceView(this);
 		mGLSurfaceView.setRenderer(new OpenGLRenderer(this));
-		
+		mGLSurfaceView.setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
 		setContentView(mGLSurfaceView);
 	}
 
