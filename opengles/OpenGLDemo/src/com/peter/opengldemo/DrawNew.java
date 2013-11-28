@@ -63,7 +63,7 @@ public class DrawNew extends OpenGLESActivity implements IOpenGLDemo {
 
     public void DrawNewArray(GL10 gl)
     {
-        gl.glTranslatef(-10, 0, 0);
+        //gl.glTranslatef(-10, 0, 0);
         //gl.glRotatex(-80, 0, 1, 0);
         gl.glVertexPointer(2, GL10.GL_FLOAT, 0, vertexNew);
 
@@ -81,7 +81,7 @@ public class DrawNew extends OpenGLESActivity implements IOpenGLDemo {
 
         gl.glMatrixMode(GL10.GL_MODELVIEW);
         gl.glLoadIdentity();
-        gl.glTranslatef(0, 0, -14);
+        gl.glTranslatef(0, 0, -100);
 
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
 
