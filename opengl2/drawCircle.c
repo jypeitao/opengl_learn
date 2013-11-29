@@ -38,9 +38,10 @@ void myDisplay(void)
 
 void myInit()
 {
-        glClearColor(0.0, 0.0, 0.0, 0.0);
-        setWindow(-4,-4,8*screenWidth/screenHeight,8);
-        glViewport(60.0f, 0, screenWidth, screenHeight);
+//        glClearColor(0.0, 0.0, 0.0, 0.0);
+//        setWindow(-4,-4,8*screenWidth/screenHeight,8);
+//        GLPoint xy = calViewportXYWantScreenCentre(-4,-4,8*screenWidth/screenHeight,8,screenWidth,screenHeight,screenWidth,screenHeight);
+//        glViewport(xy.x, xy.y, screenWidth, screenHeight);
 }
 
 int main(int argc, char **argv)
@@ -51,7 +52,13 @@ int main(int argc, char **argv)
         glutMainLoop();
 }
 
-extern void myReshape(int width, int height) {};
+extern void myReshape(int width, int height) {
+    glClearColor(0.0, 0.0, 0.0, 0.0);
+    setWindow(-4,-4,8*width/height,8);
+    GLPoint xy = calViewportXYWantScreenCentre(-4,-4,8*width/height,8,width,height,width,height);
+    glViewport(xy.x, xy.y, width, height);
+
+};
 
 extern void myMouse(int button, int state, int x, int y)
 {

@@ -24,7 +24,7 @@ extern void drawDot(GLint x, GLint y);
 
 struct GLPoint
 {
-    GLfloat x, y;
+    GLdouble x, y;
 };
 
 struct GLintPoint

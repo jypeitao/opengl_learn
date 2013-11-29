@@ -22,6 +22,7 @@ void setViewport(GLdouble left, GLdouble bottom, GLdouble width, GLdouble height
 void createFuncPoints(FUNC func, float startx, float endx);
 void drawPolyLineFile(const char * fileName);
 
+GLPoint calViewportXYWantScreenCentre(GLdouble wl, GLdouble wb, GLdouble ww, GLdouble wh, GLdouble vw, GLdouble vh, GLdouble gw, GLdouble gh);
 #define WHEEL_BUTTOM_UP 4
 #define WHEEL_BUTTOM_DOWN 3
 

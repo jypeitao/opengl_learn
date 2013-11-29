@@ -72,7 +72,13 @@ void drawPolyLineFile(const char * fileName)
         glFlush();
         inStream.close();
 }
-void calViewportX()
+GLPoint calViewportXYWantScreenCentre(GLdouble wl, GLdouble wb, GLdouble ww, GLdouble wh, GLdouble vw, GLdouble vh, GLdouble gw, GLdouble gh)
 {
-    
+    GLdouble x = 0;
+    GLdouble y = 0;
+    GLPoint point;
+    point.x =  (gw - vw)/2.0f + vw*(wl+wl+ww)/(2.0f*ww);
+
+    point.y =  (gh - vh)/2.0f + vh*(wb+wb+wh)/(2.0f*wh);
+    return point;
 }
