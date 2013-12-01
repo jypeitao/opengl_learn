@@ -1,6 +1,7 @@
 #include "publicfuncs.h"
 #include "interface.h"
 
+
 void initWindow(void)
 {
         glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGB);
@@ -9,6 +10,7 @@ void initWindow(void)
         glutCreateWindow("my first attempt");
         glutDisplayFunc(myDisplay);
         glutReshapeFunc(myReshape);
+//        glutIdleFunc(idle_func);
         glutMouseFunc(myMouse);
         glutKeyboardFunc(myKeyboard);
         glutMotionFunc(myMovedMouse);
@@ -51,12 +53,15 @@ void drawPolyLineFile(const char * fileName)
 
         std::ifstream inStream;
         inStream.open(fileName);        // open the file
+        cout<<fileName<<inStream.fail()<<endl;
         if(inStream.fail())
                 return;
         glClear(GL_COLOR_BUFFER_BIT);
         GLint numpolys, numLines, x ,y;
         inStream >> numpolys;
         //read the number of polylines
+        
+        cout<<numpolys<<endl;
         for(int j = 0; j < numpolys; j++) { //read each polyline
                 inStream >> numLines;
                 glBegin(GL_LINE_STRIP);
@@ -70,6 +75,7 @@ void drawPolyLineFile(const char * fileName)
                 glEnd();
         }
         glFlush();
+        cout<<"close"<<endl;
         inStream.close();
 }
 GLPoint calViewportXYWantScreenCentre(GLdouble wl, GLdouble wb, GLdouble ww, GLdouble wh, GLdouble vw, GLdouble vh, GLdouble gw, GLdouble gh)

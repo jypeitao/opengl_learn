@@ -45,13 +45,15 @@ void myDisplay(void)
         drawAxis(startx-deltax,endx+deltax,miny-deltay,maxy+deltay);
         drawFunc();
         glFlush();
+        glutSwapBuffers();
 }
 
 void myInit()
 {
         glClearColor(0.0, 0.0, 0.0, 0.0);
         setWindow(startx-2*deltax,miny-2*deltay, endx-startx+4*deltax, maxy-miny+4*deltay);
-        glViewport((screenWidth-screenHeight)/2, 0, screenHeight, screenHeight);
+        glViewport(0, 0, screenWidth, screenHeight);
+        //glViewport((screenWidth-screenHeight)/2, 0, screenHeight, screenHeight);
 }
 
 int main(int argc, char **argv)
@@ -63,8 +65,11 @@ int main(int argc, char **argv)
         glutMainLoop();
 }
 
-extern void myReshape(int width, int height) {};
-
+extern void myReshape(int width, int height) {
+    glClearColor(0.0, 0.0, 0.0, 0.0);
+    //setWindow(startx-2*deltax,miny-2*deltay, endx-startx+4*deltax, maxy-miny+4*deltay);
+    glViewport(0, 0, width, height);
+};
 extern void myMouse(int button, int state, int x, int y)
 {
         if (state == GLUT_DOWN) {

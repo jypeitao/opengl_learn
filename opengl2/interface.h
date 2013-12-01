@@ -21,7 +21,6 @@ extern void myPassiveMotion(int x, int y);
 extern void myKeyboard(unsigned char key, int x, int y);
 extern void myInit(void);
 extern void drawDot(GLint x, GLint y);
-
 struct GLPoint
 {
     GLdouble x, y;

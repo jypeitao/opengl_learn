@@ -1,6 +1,13 @@
 #include "interface.h"
 #include "publicfuncs.h"
 
+float initial = 0.1f;
+float factor = 0.7f;
+float calculateY(float x)
+{
+    return 4*factor*x*(1-x);
+
+}
 void drawAxis(void)
 {
         glColor3f(1.0, 0, 0);
@@ -26,11 +33,32 @@ void drawCircle(void)
         }
         glEnd();
 }
+void drawParabola()
+{
+ GLPoint current;
+GLPoint next; 
+
+current.x = initial;
+current.y = calculateY(current.x);
+    glColor3f(0,1.0,0);
+    glLineWidth(8);
+    glPointSize(2);
+    glBegin(GL_LINES);
+    for (float t=0; t<2*PI; t+=0.01) {
+        float x=cos(t);
+        float y=sin(t);
+        glVertex2f(x,y);
+    }
+    glEnd();
+}
 
 void myDisplay(void)
 {
-        drawPolyLineFile("dino.dat");
-        glutSwapBuffers();
+    glClear(GL_COLOR_BUFFER_BIT);
+    drawParabola();
+    glFlush();
+    glutSwapBuffers();
+    glutPostRedisplay();
 }
 
 void myInit()
@@ -51,8 +79,9 @@ int main(int argc, char **argv)
 
 extern void myReshape(int width, int height) {
     glClearColor(0.0, 0.0, 0.0, 0.0);
-    setWindow(0,0,width,height);
-    glViewport(0, 0, width, height);
+    setWindow(-4,-4,8*width/height,8);
+    GLPoint xy = calViewportXYWantScreenCentre(-4,-4,8*width/height,8,width,height,width,height);
+    glViewport(xy.x, xy.y, width, height);
 
 };
 
@@ -62,12 +91,12 @@ extern void myMouse(int button, int state, int x, int y)
                 if (button == GLUT_LEFT_BUTTON) {
                         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
                         glClear(GL_COLOR_BUFFER_BIT);
-                //        drawAxis();
+                        drawAxis();
                         glFlush();
                 } else if (button == GLUT_RIGHT_BUTTON) {
                         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
                         glClear(GL_COLOR_BUFFER_BIT);
-                 //       drawCircle();
+                        drawCircle();
                         glFlush();
                 }
         }
