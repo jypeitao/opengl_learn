@@ -52,13 +52,41 @@ void drawCircle(const GLPoint& origin,float radius)
    //             float y=radius*sin(t) + origin.y;
    //             glVertex2f(x,y);
    //     }
+        
         for (float t=0; t<2*PI; t+=0.01) {
-                float x=cos(t) ;
-                float y=sin(t) ;
+                float x=radius*cos(t) + origin.x;
+                float y=radius*sin(t) + origin.y;
                 //cout<<x*x+y*y<<endl;
                 glVertex2f(x,y);
         }
         glEnd();
+}
+void drawXCircle()
+{
+    //float n = 1.0f;
+        for (float n = 2.0f; n < 5.0f; n+=1) {
+            GLPoint p;
+            p.x = n;
+            p.y = 0.0f;
+            float r = sqrt(n*n - 1);
+            drawCircle(p,r);
+            p.x = -p.x;
+            drawCircle(p,r);
+        }
+}
+
+void drawYCircle()
+{
+    //float n = 1.0f;
+        for (float n = 2.0f; n < 5.0f; n+=1) {
+            GLPoint p;
+            p.x = 0.0f;
+            p.y = n;
+            float r = sqrt(n*n - 1);
+            drawCircle(p,r);
+            p.y = -p.y;
+            drawCircle(p,r);
+        }
 }
 void drawArc()
 {
@@ -104,8 +132,9 @@ void myDisplay(void)
     o.x = 0.0f;
     o.y = 0.0f;
     float r  = 0.5f;
-    drawCircle(o,r);
-    drawAxis();
+    drawXCircle();
+    drawYCircle();
+    //drawAxis();
     glFlush();
     glutSwapBuffers();
 //    glutPostRedisplay();
@@ -203,9 +232,9 @@ int main(int argc, char **argv)
 
 extern void myReshape(int width, int height) {
     glClearColor(0.0, 0.0, 0.0, 0.0);
-    setWindow(-1.0f,-1.0f,2.0f*width/height,2);
+    setWindow(-10.0f,-10.0f,20.0f*width/height,20);
     GLPoint xy = calViewportXYWantScreenCentre(0,0,1*width/height,1,width,height,width,height);
-    glViewport(0, 0, width/2, height/2);
+    glViewport(0, 0, width, height);
 
 };
 
