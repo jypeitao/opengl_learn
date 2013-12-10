@@ -14,11 +14,12 @@ DRAWRECTOBJs = drawRect.o
 DRAWDINOOBJs = drawDino.o
 DRAWGARLANDOBJs = drawGarland.o
 DRAWCHAOSOBJs = drawChaos.o
+DRAWORTHOOBJs = drawOrthoCircle.o
 
-ALLOBJs = $(HELLOOBJs) $(PUBLICOBJ) $(DRAWSINOBJs) $(DRAWRECTOBJs) $(DRAWSINCOBJs) $(DRAWDINOOBJs) $(DRAWGARLANDOBJs) $(CDRAWCHAOSOBJs)
+ALLOBJs = $(HELLOOBJs) $(PUBLICOBJ) $(DRAWSINOBJs) $(DRAWRECTOBJs) $(DRAWSINCOBJs) $(DRAWDINOOBJs) $(DRAWGARLANDOBJs) $(CDRAWCHAOSOBJs) $(DRAWORTHOOBJs)
 
 .PHONY: all
-all: hello drawSin drawRect drawSinc drawDino drawCircle drawGarland drawChaos
+all: hello drawSin drawRect drawSinc drawDino drawCircle drawGarland drawChaos drawOrthoCircle
 
 $(ALLOBJs): $(Hs)
 
@@ -30,7 +31,8 @@ drawRect: $(DRAWRECTOBJs) $(PUBLICOBJ)
 drawDino: $(DRAWDINOOBJs) $(PUBLICOBJ)
 drawGarland: $(DRAWGARLANDOBJs) $(PUBLICOBJ)
 drawChaos: $(DRAWCHAOSOBJs) $(PUBLICOBJ)
+drawOrthoCircle: $(DRAWORTHOOBJs) $(PUBLICOBJ)
 
 .PHONY: clean
 clean:
-	rm -rf *.o hello drawSin drawCircle drawRect drawSinc drawDino *~ *.orig drawGarland drawChaos
+	rm -rf *.o hello drawSin drawCircle drawRect drawSinc drawDino *~ *.orig drawGarland drawChaos drawOrthoCircle

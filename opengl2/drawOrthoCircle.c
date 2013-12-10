@@ -34,25 +34,59 @@ void drawAxis(void)
         glColor3f(1.0, 0, 0);
         glLineWidth(8);
         glBegin(GL_LINES);
-        glVertex2i(-4,0);
-        glVertex2i(4,0);
-        glVertex2i(0,4);
-        glVertex2i(0,-4);
+        glVertex2i(-10,0);
+        glVertex2i(10,0);
+        glVertex2i(0,10);
+        glVertex2i(0,-10);
         glEnd();
 }
 
-void drawCircle(void)
+void drawCircle(const GLPoint& origin,float radius)
 {
         glColor3f(0,1.0,0);
-        glLineWidth(8);
-        glPointSize(2);
+        //glLineWidth(8);
+        //glPointSize(2);
         glBegin(GL_POINTS);
+   //      for (float t=0; t<2*PI; t+=0.001) {
+   //             float x=radius*cos(t) + origin.x;
+   //             float y=radius*sin(t) + origin.y;
+   //             glVertex2f(x,y);
+   //     }
+        
         for (float t=0; t<2*PI; t+=0.01) {
-                float x=cos(t);
-                float y=sin(t);
+                float x=radius*cos(t) + origin.x;
+                float y=radius*sin(t) + origin.y;
+                //cout<<x*x+y*y<<endl;
                 glVertex2f(x,y);
         }
         glEnd();
+}
+void drawXCircle()
+{
+    //float n = 1.0f;
+        for (float n = 2.0f; n < 5.0f; n+=1) {
+            GLPoint p;
+            p.x = n;
+            p.y = 0.0f;
+            float r = sqrt(n*n - 1);
+            drawCircle(p,r);
+            p.x = -p.x;
+            drawCircle(p,r);
+        }
+}
+
+void drawYCircle()
+{
+    //float n = 1.0f;
+        for (float n = 2.0f; n < 5.0f; n+=1) {
+            GLPoint p;
+            p.x = 0.0f;
+            p.y = n;
+            float r = sqrt(n*n - 1);
+            drawCircle(p,r);
+            p.y = -p.y;
+            drawCircle(p,r);
+        }
 }
 void drawArc()
 {
@@ -92,14 +126,20 @@ extern void timerProc(int id);
 void myDisplay(void)
 {
     glClear(GL_COLOR_BUFFER_BIT);
-    drawArc();
-    drawParabola();
+//    drawArc();
+ //   drawParabola();
+    GLPoint o;
+    o.x = 0.0f;
+    o.y = 0.0f;
+    float r  = 0.5f;
+    drawXCircle();
+    drawYCircle();
+    //drawAxis();
     glFlush();
     glutSwapBuffers();
 //    glutPostRedisplay();
     if(current_pos < POINTS_NUM)
-    {
-        glutTimerFunc(1000,timerProc,1); 
+    { glutTimerFunc(1000,timerProc,1); 
     }
 }
 
@@ -192,7 +232,7 @@ int main(int argc, char **argv)
 
 extern void myReshape(int width, int height) {
     glClearColor(0.0, 0.0, 0.0, 0.0);
-    setWindow(0,0,1*width/height,1);
+    setWindow(-10.0f,-10.0f,20.0f*width/height,20);
     GLPoint xy = calViewportXYWantScreenCentre(0,0,1*width/height,1,width,height,width,height);
     glViewport(0, 0, width, height);
 
@@ -200,19 +240,19 @@ extern void myReshape(int width, int height) {
 
 extern void myMouse(int button, int state, int x, int y)
 {
-        if (state == GLUT_DOWN) {
-                if (button == GLUT_LEFT_BUTTON) {
-                        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-                        glClear(GL_COLOR_BUFFER_BIT);
-                        drawAxis();
-                        glFlush();
-                } else if (button == GLUT_RIGHT_BUTTON) {
-                        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-                        glClear(GL_COLOR_BUFFER_BIT);
-                        drawCircle();
-                        glFlush();
-                }
-        }
+  //      if (state == GLUT_DOWN) {
+  //              if (button == GLUT_LEFT_BUTTON) {
+  //                      glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+  //                      glClear(GL_COLOR_BUFFER_BIT);
+  //                      drawAxis();
+  //                      glFlush();
+  //              } else if (button == GLUT_RIGHT_BUTTON) {
+  //                      glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+  //                      glClear(GL_COLOR_BUFFER_BIT);
+  //                      drawCircle();
+  //                      glFlush();
+  //              }
+  //      }
 }
 
 extern void myKeyboard(unsigned char key, int x, int y) {};
